@@ -11,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println(555);
+        System.out.println(666);
         PersonFactory personFactory=new PersonFactory();
         String fileName="C:\\Users\\pushinka\\Projecty\\2021\\5\\zoo\\src\\sort\\persony.txt";
         List<String> list= PersonFactory.readPersonsFromFile(fileName);
