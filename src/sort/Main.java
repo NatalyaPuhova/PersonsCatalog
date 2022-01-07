@@ -75,6 +75,19 @@ public class Main {
         for (Person p:copyArrayPersons){
             System.out.println(p);
         }
+
+
+
+        copyArrayPersons=new Person[arrayPersons.length];
+        for (int i=0; i< arrayPersons.length;i++){
+            copyArrayPersons[i]=arrayPersons[i];
+        }
+
+        sorting.sort3(copyArrayPersons,new PersonDateComparator());
+        System.out.println("\nComparator по ДАТЕ");
+        for (Person p:copyArrayPersons){
+            System.out.println(p);
+        }
     }
 
 

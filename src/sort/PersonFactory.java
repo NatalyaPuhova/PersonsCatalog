@@ -14,12 +14,14 @@ public class PersonFactory {
         String name;
         String surName;
         int weight;
+        String dateBirth;
         for (String s:listFromFile){
             String [] array=s.split(" ");
             name=array[0];
             surName=array[1];
             weight=Integer.parseInt(array[2]);
-            listPersons.add(new Person(name,surName,weight));
+            dateBirth=array[3];
+            listPersons.add(new Person(name,surName,weight,dateBirth));
         }
 
         return listPersons;
@@ -47,13 +49,16 @@ public class PersonFactory {
         int size=listNamesSurnames.size();
         Person[] arrayPersons=new Person[size];
         int weight;
+        String dateBirth;
         for (int i=0;i<size;i++){
             String stroka=listNamesSurnames.get(i);
             String [] arrayNameSurname=stroka.split(" ");
             String name=arrayNameSurname[0];
             String surname=arrayNameSurname[1];
             weight=Integer.parseInt(arrayNameSurname[2]);
-            arrayPersons[i]=new Person(name,surname,weight);
+            dateBirth=arrayNameSurname[3];
+
+            arrayPersons[i]=new Person(name,surname,weight,dateBirth);
         }
 
         System.out.println(listNamesSurnames);
@@ -84,23 +89,6 @@ public class PersonFactory {
         return listNamesSurnames;
     }
 
-    public int  surnamesRepeat(List<Person> listPersons){
-        int num=0;
-        for (Person p:listPersons){
-            for (int i=0;i<listPersons.size();){
-                System.out.println(p.getSurname());
-                System.out.println(listPersons.get(i).getSurname());
-                System.out.println("i="+i);
-                if (p.getSurname().equals(listPersons.get(i).getSurname())){
-                    num++;
-                    System.out.println("num="+num);
-                    i++;
-                }
-            }
-
-        }
-        return num;
-    }
 
 
 }

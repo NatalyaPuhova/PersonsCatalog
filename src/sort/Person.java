@@ -7,14 +7,16 @@ public class Person implements Comparable<Person> {
     private String name;
     private String surname;
     private int weight;
+    private String dateBirth;
 
     public Person(){
 
     }
-    public Person(String name,String surname, int weight){
+    public Person(String name,String surname, int weight, String dateBirth){
         this.name=name;
         this.surname=surname;
         this.weight=weight;
+        this.dateBirth=dateBirth;
     }
 
     public void setName(String name){
@@ -39,11 +41,17 @@ public class Person implements Comparable<Person> {
         return surname;
     }
 
+    public String getDateBirth() {
+        return dateBirth;
+    }
 
+    public void setDateBirth(String dateBirth) {
+        this.dateBirth = dateBirth;
+    }
 
     @Override
     public String toString(){
-        return ("имя="+name+"; "+"фамилия="+surname+"  вес="+weight);
+        return ("имя="+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth);
     }
 
     @Override
