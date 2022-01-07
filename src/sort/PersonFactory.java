@@ -13,13 +13,15 @@ public class PersonFactory {
         List<Person> listPersons=new ArrayList<>();
         String name;
         String surName;
+        int weight;
         for (String s:listFromFile){
             String [] array=s.split(" ");
             name=array[0];
             surName=array[1];
-            listPersons.add(new Person(name,surName));
+            weight=Integer.parseInt(array[2]);
+            listPersons.add(new Person(name,surName,weight));
         }
-        System.out.println("listPersons.size()="+listPersons.size());
+
         return listPersons;
     }
 
@@ -44,12 +46,14 @@ public class PersonFactory {
         }
         int size=listNamesSurnames.size();
         Person[] arrayPersons=new Person[size];
+        int weight;
         for (int i=0;i<size;i++){
             String stroka=listNamesSurnames.get(i);
             String [] arrayNameSurname=stroka.split(" ");
             String name=arrayNameSurname[0];
             String surname=arrayNameSurname[1];
-            arrayPersons[i]=new Person(name,surname);
+            weight=Integer.parseInt(arrayNameSurname[2]);
+            arrayPersons[i]=new Person(name,surname,weight);
         }
 
         System.out.println(listNamesSurnames);

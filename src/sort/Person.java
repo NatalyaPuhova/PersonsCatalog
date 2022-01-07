@@ -6,18 +6,29 @@ import java.util.List;
 public class Person implements Comparable<Person> {
     private String name;
     private String surname;
+    private int weight;
 
     public Person(){
 
     }
-    public Person(String name,String surname){
+    public Person(String name,String surname, int weight){
         this.name=name;
         this.surname=surname;
+        this.weight=weight;
     }
 
     public void setName(String name){
         this.name=name;
     }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     public String getName(){
         return name;
     }
@@ -32,7 +43,7 @@ public class Person implements Comparable<Person> {
 
     @Override
     public String toString(){
-        return ("имя="+name+"; "+"фамилия="+surname);
+        return ("имя="+name+"; "+"фамилия="+surname+"  вес="+weight);
     }
 
     @Override
