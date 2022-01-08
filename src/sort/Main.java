@@ -20,7 +20,7 @@ public class Main {
             System.out.println(p);
         }
         System.out.println("\nIvan release");
-        Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);//
+        Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);
         Person[] copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
             copyArrayPersons[i]=arrayPersons[i];
@@ -86,6 +86,18 @@ public class Main {
         sorting.sort3(copyArrayPersons,new PersonDateComparator());
         System.out.println("\nComparator по ДАТЕ");
         for (Person p:copyArrayPersons){
+            System.out.println(p);
+        }
+
+
+        System.out.println("\n до сортировки Comparator по ДАТЕ LAMBDA");
+        for (Person p:listPersons){
+            System.out.println(p);
+        }
+        Comparator <Person> comparatorLambda=(p1,p2)->(p1.getDateBirth().compareTo(p2.getDateBirth()));
+        Collections.sort(listPersons,comparatorLambda);
+        System.out.println("\nComparator по ДАТЕ LAMBDA");
+        for (Person p:listPersons){
             System.out.println(p);
         }
     }

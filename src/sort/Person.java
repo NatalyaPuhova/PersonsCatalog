@@ -1,5 +1,6 @@
 package sort;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +8,12 @@ public class Person implements Comparable<Person> {
     private String name;
     private String surname;
     private int weight;
-    private String dateBirth;
+    private LocalDate dateBirth;
 
     public Person(){
 
     }
-    public Person(String name,String surname, int weight, String dateBirth){
+    public Person(String name,String surname, int weight, LocalDate dateBirth){
         this.name=name;
         this.surname=surname;
         this.weight=weight;
@@ -41,17 +42,17 @@ public class Person implements Comparable<Person> {
         return surname;
     }
 
-    public String getDateBirth() {
+    public LocalDate getDateBirth() {
         return dateBirth;
     }
 
-    public void setDateBirth(String dateBirth) {
+    public void setDateBirth(LocalDate dateBirth) {
         this.dateBirth = dateBirth;
     }
 
     @Override
     public String toString(){
-        return ("имя="+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth);
+        return ("имя="+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth.toString());
     }
 
     @Override
