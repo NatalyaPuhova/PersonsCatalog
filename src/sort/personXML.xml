@@ -1,0 +1,15 @@
+<Persons>
+
+<Person>
+<name>Константин</name><surname>Петров</surname>
+<weight>63</weight>
+<LocalDate>1985-01-13</LocalDate>
+</Person>
+
+<Person>
+<name>Николай</name><surname>Сидоров</surname>
+<weight>65</weight>
+<LocalDate>1986-01-12</LocalDate>
+</Person>
+
+</Persons>

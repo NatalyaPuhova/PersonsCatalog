@@ -54,6 +54,25 @@ public class Person implements Comparable<Person> {
     public String toString(){
         return ("имя="+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth.toString());
     }
+    @Override
+    public boolean equals(Object p){
+        if (p==this){
+            return true;
+        } else
+        if ((p==null)&&(this.getClass()==p.getClass())){
+            return true;
+        } else
+        if  (!(p instanceof Person)){
+            return false;
+        }
+        Person p1=(Person)p;
+        if (name.equals(p1.getName())&&(surname.equals(p1.getSurname()))&&(weight==p1.getWeight())&&(dateBirth.equals(p1.getDateBirth()))){
+
+            return  true;
+        }
+        return false;
+
+    }
 
     @Override
     public int compareTo(Person p){

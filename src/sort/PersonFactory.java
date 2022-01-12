@@ -1,5 +1,8 @@
 package sort;
 
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -69,6 +72,69 @@ public class PersonFactory {
 
         System.out.println(listNamesSurnamesDates);
         return arrayPersons;
+    }
+    public  List<Person> readPersonsFromFile3XML(String fileName3) {
+        String name;
+        String surname;
+        int weight;
+        LocalDate dateBirth;
+
+        List<Person> personList=new ArrayList<>();
+        StringBuilder stringBuilder=null;
+        int num=0;
+        try {
+            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName3));
+            stringBuilder=new StringBuilder();
+            String str;
+            while ((str=bufferedReader.readLine())!=null){
+                stringBuilder.append(str);
+                num++;
+            }
+            System.out.println("stringBuilder="+stringBuilder);
+        }
+        catch (FileNotFoundException fileNotFoundException){
+            System.out.println("нет файла");
+            fileNotFoundException.printStackTrace();
+        }
+        catch (IOException exception){
+            System.out.println("ошибка");
+            exception.printStackTrace();
+        }
+
+
+        int start=0;
+        int stop=0;
+        for (int i=0;i<stringBuilder.length();i++){
+            while ((start=stringBuilder.indexOf("<name>"))!=-1){
+                stop=stringBuilder.indexOf("</name>");
+                name=stringBuilder.substring(start+6,stop);
+                stringBuilder.delete(start,stop+7);
+
+                start=stringBuilder.indexOf("<surname>");
+                stop=stringBuilder.indexOf("</surname>");
+                surname=stringBuilder.substring(start+9,stop);
+                stringBuilder.delete(start,stop+10);
+
+                start=stringBuilder.indexOf("<weight>");
+                stop=stringBuilder.indexOf("</weight>");
+                weight=Integer.parseInt(stringBuilder.substring(start+8,stop));
+                stringBuilder.delete(start,stop+9);
+
+                start=stringBuilder.indexOf("<LocalDate>");
+                stop=stringBuilder.indexOf("</LocalDate>");
+                dateBirth=LocalDate.parse(stringBuilder.substring(start+11,stop));
+                stringBuilder.delete(start,stop+12);
+
+                System.out.println("name="+name);
+                System.out.println("surname="+surname);
+                System.out.println("weight="+weight);
+                System.out.println("dateBirth="+dateBirth);
+                personList.add(new Person(name,surname,weight,dateBirth));
+
+            }
+
+        }
+        return personList;
     }
 
     public static List<String> readPersonsFromFile(String fileName) {
