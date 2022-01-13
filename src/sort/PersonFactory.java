@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonFactory {
+    private  static  StringBuilder stringBuilder=new StringBuilder();
+    private static String str;
 
     public List<Person> createPersonList (List<String> listFromFile){
         List<Person> listPersons=new ArrayList<>();
@@ -74,21 +76,73 @@ public class PersonFactory {
         return arrayPersons;
     }
     public  List<Person> readPersonsFromFile3XML(String fileName3) {
-        String name;
-        String surname;
-        int weight;
-        LocalDate dateBirth;
-
+        String [] arrayTags=new String[]{"name","surname","weight","LocalDate"};
         List<Person> personList=new ArrayList<>();
-        StringBuilder stringBuilder=null;
-        int num=0;
+        String name=null;
+        String surname=null;
+        int weight=0;
+        LocalDate dateBirth=null;
+        bufferReadFromFile(fileName3);
+        for (int i=stringBuilder.indexOf("<Person>");i<stringBuilder.indexOf("</Person>") ;i++){
+            for (int j=0;j<arrayTags.length;j++){
+                int start=stringBuilder.indexOf("<"+arrayTags[j]+">",i);
+                int stop=stringBuilder.indexOf("</"+arrayTags[j]+">",i);
+                String info=stringBuilder.substring(start+arrayTags[j].length()+2,stop);
+
+                switch (arrayTags[j]){
+                    case "name":
+                        name=info;
+                        break;
+                    case "surname":
+                        surname=info;
+                        break;
+                    case "weight":
+                        weight=Integer.parseInt(info);
+                        break;
+                    case "LocalDate":
+                        dateBirth=LocalDate.parse(info);
+                        break;
+                    default:
+                        System.out.println("что-то неизвестное");
+                }
+                stringBuilder.delete(start,stop+arrayTags[j].length()+3);
+            }
+            personList.add(new Person(name,surname,weight,dateBirth));
+            int n1=stringBuilder.indexOf("<Person>");
+            int n2=stringBuilder.indexOf("</Person>")+9;
+            stringBuilder.delete(n1,n2);
+        }
+        return personList;
+
+    }
+
+    public static List<String> readPersonsFromFile(String fileName) {
+        List<String> listNamesSurnames=new ArrayList<>();
         try {
-            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName3));
-            stringBuilder=new StringBuilder();
+            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
             String str;
             while ((str=bufferedReader.readLine())!=null){
+                listNamesSurnames.add(str);
+            }
+        }
+        catch (FileNotFoundException fileNotFoundException){
+            System.out.println("нет файла");
+            fileNotFoundException.printStackTrace();
+        }
+        catch (IOException exception){
+            System.out.println("ошибка");
+            exception.printStackTrace();
+        }
+        System.out.println(listNamesSurnames);
+        return listNamesSurnames;
+    }
+
+
+    private  static StringBuilder bufferReadFromFile(String fileName3){
+        try {
+            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName3));
+            while ((str=bufferedReader.readLine())!=null){
                 stringBuilder.append(str);
-                num++;
             }
             System.out.println("stringBuilder="+stringBuilder);
         }
@@ -100,67 +154,9 @@ public class PersonFactory {
             System.out.println("ошибка");
             exception.printStackTrace();
         }
-
-
-        int start=0;
-        int stop=0;
-        for (int i=0;i<stringBuilder.length();i++){
-            while ((start=stringBuilder.indexOf("<name>"))!=-1){
-                stop=stringBuilder.indexOf("</name>");
-                name=stringBuilder.substring(start+6,stop);
-                stringBuilder.delete(start,stop+7);
-
-                start=stringBuilder.indexOf("<surname>");
-                stop=stringBuilder.indexOf("</surname>");
-                surname=stringBuilder.substring(start+9,stop);
-                stringBuilder.delete(start,stop+10);
-
-                start=stringBuilder.indexOf("<weight>");
-                stop=stringBuilder.indexOf("</weight>");
-                weight=Integer.parseInt(stringBuilder.substring(start+8,stop));
-                stringBuilder.delete(start,stop+9);
-
-                start=stringBuilder.indexOf("<LocalDate>");
-                stop=stringBuilder.indexOf("</LocalDate>");
-                dateBirth=LocalDate.parse(stringBuilder.substring(start+11,stop));
-                stringBuilder.delete(start,stop+12);
-
-                System.out.println("name="+name);
-                System.out.println("surname="+surname);
-                System.out.println("weight="+weight);
-                System.out.println("dateBirth="+dateBirth);
-                personList.add(new Person(name,surname,weight,dateBirth));
-
-            }
-
-        }
-        return personList;
+        return stringBuilder;
     }
-
-    public static List<String> readPersonsFromFile(String fileName) {
-        List<String> listNamesSurnames=new ArrayList<>();
-
-        try {
-            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
-            String str;
-            while ((str=bufferedReader.readLine())!=null){
-                listNamesSurnames.add(str);
-            }
-        }
-        catch (FileNotFoundException fileNotFoundException){
-            System.out.println("нет файла");
-            fileNotFoundException.printStackTrace();
-
-        }
-        catch (IOException exception){
-            System.out.println("ошибка");
-            exception.printStackTrace();
-
-        }
-        System.out.println(listNamesSurnames);
-        return listNamesSurnames;
-    }
-
 
 
 }
+

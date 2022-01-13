@@ -6,88 +6,69 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        PersonFactory personFactory=new PersonFactory();
         String fileName="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\persony.txt";
         String fileName3="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\personXML.xml";
+
+        PersonFactory personFactory=new PersonFactory();
         List<String> list= PersonFactory.readPersonsFromFile(fileName);
-        personFactory.createPersonList(list);//
+
         List<Person> listPersons=personFactory.createPersonList(list);
-        for (Person p:listPersons){
-            System.out.println(p);
-        }
+
+        printListPersons(listPersons);
+
         Sorting sorting=new Sorting();
         sorting.sort(listPersons);
         System.out.println("\nnew");
-        for (Person p:listPersons){
-            System.out.println(p);
-        }
-        System.out.println("\nIvan release");
-        Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);
+        printListPersons(listPersons);
 
+        Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);
         List<Person> personList=personFactory.readPersonsFromFile3XML(fileName3);
         System.out.println("!!!!!!!!!!!!!!!");
-        for (Person p:personList){
-            System.out.println(p);
-        }
-
-
+        printListPersons(personList);
 
         Person[] copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
             copyArrayPersons[i]=arrayPersons[i];
         }
+
         System.out.println("\narrayPersons");
-        for (Person p:arrayPersons){
-            System.out.println(p);
-        }
+        printArrayPersons(arrayPersons);
+
         listPersons=sorting.sort2(copyArrayPersons);
         System.out.println("\nlistPersons");
-        for (Person p:listPersons){
-            System.out.println(p);
-        }
+        printListPersons(listPersons);
+
         Comparator<Person> personComparator=new PersonWeightComparator().thenComparing(new PersonSurnameComparator());
         Collections.sort(listPersons,personComparator);
         System.out.println("\nисходный list");
-        for (Person p:listPersons){
-            System.out.println(p);
-        }
+        printListPersons(listPersons);
+
         copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
             copyArrayPersons[i]=arrayPersons[i];
         }
         sorting.sort3(copyArrayPersons,new PersonSurnameComparator());
         System.out.println("\nComparator2 copyArrayPersons по фамилии");
-        for (Person p:copyArrayPersons){
-            System.out.println(p);
-        }
+        printArrayPersons(copyArrayPersons);
         System.out.println("\narrayPersons");
-        for (Person p:arrayPersons){
-            System.out.println(p);
-        }
+        printArrayPersons(copyArrayPersons);
+
         copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
             copyArrayPersons[i]=arrayPersons[i];
         }
         System.out.println("\ncopyArrayPersons");
-        for (Person p:copyArrayPersons){
-            System.out.println(p);
-        }
+        printArrayPersons(copyArrayPersons);
         sorting.sort3(copyArrayPersons,new PersonWeightComparator());
         System.out.println("\nComparator3 по весу");
-        for (Person p:copyArrayPersons){
-            System.out.println(p);
-        }
+        printArrayPersons(copyArrayPersons);
         copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
             copyArrayPersons[i]=arrayPersons[i];
-        };
+        }
         sorting.sort3(copyArrayPersons,new PersonWeightComparator().thenComparing(new PersonSurnameComparator()));
         System.out.println("\nComparator вес, потом фамилия");
-        for (Person p:copyArrayPersons){
-            System.out.println(p);
-        }
-
-
+        printArrayPersons(copyArrayPersons);
 
         copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
@@ -96,10 +77,8 @@ public class Main {
 
         sorting.sort3(copyArrayPersons,new PersonDateComparator());
         System.out.println("\nComparator по ДАТЕ");
-        for (Person p:copyArrayPersons){
-            System.out.println(p);
-        }
-
+        printListPersons(listPersons);
+        printArrayPersons(copyArrayPersons);
 
         System.out.println("\n до сортировки Comparator по ДАТЕ LAMBDA");
         for (Person p:listPersons){
@@ -108,9 +87,7 @@ public class Main {
         Comparator <Person> comparatorLambda=(p1,p2)->(p1.getDateBirth().compareTo(p2.getDateBirth()));
         Collections.sort(listPersons,comparatorLambda);
         System.out.println("\nComparator по ДАТЕ LAMBDA");
-        for (Person p:listPersons){
-            System.out.println(p);
-        }
+        printListPersons(listPersons);
 
         CheckProperties checkProperties=new CheckProperties();
         LocalDate localDateNewPerson=LocalDate.of(1987,01,11);
@@ -135,13 +112,18 @@ public class Main {
                 System.out.println("checkTransitivity:"+checkProperties.checkTransitivity(newPerson1,newPerson2,newPerson3));
             }
         }
-
-
-
-
-
-
+    }
+    private static void printListPersons(List<Person >listPersons){
+        for (Person p:listPersons){
+            System.out.println(p);
+        }
+    }
+    private static void printArrayPersons(Person [] arrayPersons){
+        for (Person p:arrayPersons){
+            System.out.println(p);
+        }
     }
 
-
 }
+
+
