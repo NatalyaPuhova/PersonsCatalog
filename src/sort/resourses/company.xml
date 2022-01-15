@@ -1,0 +1,40 @@
+<Companies>
+<Company>Fractal
+
+    <Person>
+        <name>Наталья</name>
+        <surname>Пухова</surname>
+        <weight>60</weight>
+        <LocalDate>1985-01-17</LocalDate>
+    </Person>
+
+</Company>
+
+
+
+<Company>Home
+    <Person>
+        <name>Иван</name>
+        <surname>Пуков</surname>
+        <weight>165</weight>
+        <LocalDate>1980-02-19</LocalDate>
+    </Person>
+
+</Company>
+
+
+
+<Company>Neighbor
+
+    <Person>
+        <name>Денис</name>
+        <surname>Пумкин</surname>
+        <weight>90</weight>
+        <LocalDate>1965-01-11</LocalDate>
+    </Person>
+
+</Company>
+
+
+
+</Companies>

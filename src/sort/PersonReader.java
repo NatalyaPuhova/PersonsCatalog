@@ -1,8 +1,5 @@
 package sort;
 
-import javax.swing.text.Document;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,8 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonFactory {
-    private  static  StringBuilder stringBuilder=new StringBuilder();
+public class PersonReader {
+    private  static StringBuilder stringBuilder=new StringBuilder();
     private static String str;
 
     public List<Person> createPersonList (List<String> listFromFile){
@@ -39,6 +36,7 @@ public class PersonFactory {
     }
 
     public  Person[] readPersonsFromFile2(String fileName) {
+
         List<String> listNamesSurnamesDates=new ArrayList<>();
         try {
             BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
@@ -63,18 +61,20 @@ public class PersonFactory {
 
         for (int i=0;i<size;i++){
             String stroka=listNamesSurnamesDates.get(i);
-            String [] arrayNameSurnameDate=stroka.split(" ");
-            String name=arrayNameSurnameDate[0];
-            String surname=arrayNameSurnameDate[1];
-            weight=Integer.parseInt(arrayNameSurnameDate[2]);
-            LocalDate dateBirth=LocalDate.parse(arrayNameSurnameDate[3]);
+            String[] arrayNameSurnameDate = stroka.split(" ");
+            String name = arrayNameSurnameDate[0];
+            String surname = arrayNameSurnameDate[1];
+            weight = Integer.parseInt(arrayNameSurnameDate[2]);
+            LocalDate dateBirth = LocalDate.parse(arrayNameSurnameDate[3]);
 
-            arrayPersons[i]=new Person(name,surname,weight,dateBirth);
+            arrayPersons[i] = new Person(name, surname, weight, dateBirth);
         }
 
         System.out.println(listNamesSurnamesDates);
         return arrayPersons;
     }
+
+
     public  List<Person> readPersonsFromFile3XML(String fileName3) {
         String [] arrayTags=new String[]{"name","surname","weight","LocalDate"};
         List<Person> personList=new ArrayList<>();

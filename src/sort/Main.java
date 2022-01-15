@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String fileName="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\persony.txt";
-        String fileName3="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\personXML.xml";
+        String fileName="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
+        String fileName3="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\personXML.xml";
 
-        PersonFactory personFactory=new PersonFactory();
-        List<String> list= PersonFactory.readPersonsFromFile(fileName);
+        PersonReader personFactory=new PersonReader();
+        List<String> list= PersonReader.readPersonsFromFile(fileName);
 
         List<Person> listPersons=personFactory.createPersonList(list);
 
@@ -22,9 +22,22 @@ public class Main {
         printListPersons(listPersons);
 
         Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);
+
         List<Person> personList=personFactory.readPersonsFromFile3XML(fileName3);
         System.out.println("!!!!!!!!!!!!!!!");
         printListPersons(personList);
+        Company company=new Company();
+        CompanyReader companyReader=new CompanyReader();
+        StringBuilder stringBuilder=companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
+
+        List<Company> listCompany=companyReader.returnCompanies(stringBuilder);///////////////
+
+        System.out.println("\nНаши компании");
+        for (Company c:listCompany){
+            System.out.println(c);
+        }
+
+
 
         Person[] copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
