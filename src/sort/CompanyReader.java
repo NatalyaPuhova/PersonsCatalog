@@ -25,15 +25,12 @@ public class CompanyReader {
             while (stringBuilder.indexOf("<Person>")!=-1){
                 int indCompany1=stringBuilder.indexOf("<Company>")+9;
                 int indCompany2=stringBuilder.indexOf("<",indCompany1+1);
-
                 companyName=stringBuilder.substring(indCompany1,indCompany2).trim();
+
                 for (int k=0;k<arrayTags.length;k++ ){
                     int start=stringBuilder.indexOf("<"+arrayTags[k]+">")+arrayTags[k].length()+2;
                     int stop=stringBuilder.indexOf("</"+arrayTags[k]+">");
-
-
                     String info=stringBuilder.substring(start,stop);
-
                     switch (arrayTags[k]){
                         case "name":
                             name=info;
@@ -50,13 +47,10 @@ public class CompanyReader {
                         default:
                             System.out.println("неизвестный тег");
                     }
-
-
                 }
                 int ind1=stringBuilder.indexOf("<Company>");
                 int ind2=stringBuilder.indexOf("</Company>");
                 stringBuilder.delete(ind1,ind2+10);
-
                 personHead=new Person(name,surname,weight,dateBirth);
                 listCompanies.add(new Company(companyName,personHead));
             }

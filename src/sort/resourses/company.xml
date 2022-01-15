@@ -1,5 +1,8 @@
 <Companies>
 <Company>Fractal
+    <jj>
+        <name>hjfgjhghj</name>
+    </jj>
 
     <Person>
         <name>Наталья</name>
@@ -14,10 +17,11 @@
 
 <Company>Home
     <Person>
-        <name>Иван</name>
-        <surname>Пуков</surname>
         <weight>165</weight>
         <LocalDate>1980-02-19</LocalDate>
+        <name>Иван</name>
+        <surname>Пуков</surname>
+
     </Person>
 
 </Company>
