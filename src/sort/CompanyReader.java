@@ -9,24 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyReader {
-    private String companyName;
-    private Person personHead=new Person();
-    private List<Company>listCompanies=new ArrayList<>();
+
 
 
     public  List<Company> returnCompanies(StringBuilder stringBuilder) {
-        String name=null;
-        String surname=null;
-        int weight=0;
-        LocalDate dateBirth=null;
+        List<Company>listCompanies=new ArrayList<>();
         String [] arrayTags=new String[]{"name","surname","weight","LocalDate"};
-
         while (stringBuilder.indexOf("<Company>")!=-1){
             while (stringBuilder.indexOf("<Person>")!=-1){
+
                 int indCompany1=stringBuilder.indexOf("<Company>")+9;
                 int indCompany2=stringBuilder.indexOf("<",indCompany1+1);
-                companyName=stringBuilder.substring(indCompany1,indCompany2).trim();
-
+                String companyName=stringBuilder.substring(indCompany1,indCompany2).trim();
+                String name=null;
+                String surname=null;
+                int weight=Integer.parseInt("0");
+                LocalDate dateBirth=null;
                 for (int k=0;k<arrayTags.length;k++ ){
                     int start=stringBuilder.indexOf("<"+arrayTags[k]+">")+arrayTags[k].length()+2;
                     int stop=stringBuilder.indexOf("</"+arrayTags[k]+">");
@@ -51,7 +49,7 @@ public class CompanyReader {
                 int ind1=stringBuilder.indexOf("<Company>");
                 int ind2=stringBuilder.indexOf("</Company>");
                 stringBuilder.delete(ind1,ind2+10);
-                personHead=new Person(name,surname,weight,dateBirth);
+                Person personHead=new Person(name,surname,weight,dateBirth);
                 listCompanies.add(new Company(companyName,personHead));
             }
         }
