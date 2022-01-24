@@ -7,13 +7,13 @@ import java.util.List;
 public class Person implements Comparable<Person> {
     private String name;
     private String surname;
-    private int weight;
+    private Integer weight;
     private LocalDate dateBirth;
 
     public Person(){
 
     }
-    public Person(String name,String surname, int weight, LocalDate dateBirth){
+    public Person(String name,String surname, Integer weight, LocalDate dateBirth){//Integer for weight//
         this.name=name;
         this.surname=surname;
         this.weight=weight;
@@ -24,11 +24,11 @@ public class Person implements Comparable<Person> {
         this.name=name;
     }
 
-    public int getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -52,8 +52,16 @@ public class Person implements Comparable<Person> {
 
     @Override
     public String toString(){
-        return ("имя="+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth.toString());
+        String rezult;
+        if (dateBirth!=null){
+            rezult="имя  "+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth.toString();
+        } else {
+
+            rezult="имя "+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+null;
+        }
+        return rezult;
     }
+
     @Override
     public boolean equals(Object p){
         if (p==this){

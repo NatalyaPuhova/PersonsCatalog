@@ -1,44 +1,39 @@
 <Companies>
-<Company>Fractal
+<Company>
+
+
+        <CompanyName>Home</CompanyName>
+        <Person>
+            <weight>165</weight>
+            <surname>Пуков</surname>
+        </Person>
+
+</Company>
+
+<Company>
+
+    <CompanyName>Fractal</CompanyName>
     <jj>
         <name>hjfgjhghj</name>
     </jj>
 
-    <Person>
+    <!--Person>
         <name>Наталья</name>
         <surname>Пухова</surname>
-        <weight>60</weight>
+        <weight></weight>
         <LocalDate>1985-01-17</LocalDate>
-    </Person>
+    </Person-->
 
 </Company>
 
-
-
-<Company>Home
-    <Person>
-        <weight>165</weight>
-        <LocalDate>1980-02-19</LocalDate>
-        <name>Иван</name>
-        <surname>Пуков</surname>
-
-    </Person>
-
-</Company>
-
-
-
-<Company>Neighbor
-
+<Company>
+    <CompanyName>Neighbor</CompanyName>
     <Person>
         <name>Денис</name>
         <surname>Пумкин</surname>
         <weight>90</weight>
-        <LocalDate>1965-01-11</LocalDate>
+        <LocalDate>1980-02-19</LocalDate>
     </Person>
-
 </Company>
-
-
 
 </Companies>

@@ -32,7 +32,7 @@ public class Company {
     }
     @Override
     public String toString(){
-        return "компания:"+companyName+" её глава="+personHead;
+        return "компания:"+companyName+" её глава: "+personHead;
     }
 
 
