@@ -54,7 +54,7 @@ public class Person implements Comparable<Person> {
     public String toString(){
         String rezult;
         if (dateBirth!=null){
-            rezult="имя  "+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth.toString();
+            rezult="имя  "+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+dateBirth;
         } else {
 
             rezult="имя "+name+"; "+"фамилия="+surname+"  вес="+weight+"  ДАТА рождения="+null;
@@ -74,11 +74,7 @@ public class Person implements Comparable<Person> {
             return false;
         }
         Person p1=(Person)p;
-        if (name.equals(p1.getName())&&(surname.equals(p1.getSurname()))&&(weight==p1.getWeight())&&(dateBirth.equals(p1.getDateBirth()))){
-
-            return  true;
-        }
-        return false;
+        return name.equals(p1.getName())&&(surname.equals(p1.getSurname()))&&(weight.equals(p1.getWeight()))&&(dateBirth.equals(p1.getDateBirth()));
 
     }
 

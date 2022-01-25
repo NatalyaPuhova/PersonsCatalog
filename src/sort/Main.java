@@ -7,43 +7,34 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String fileName="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
+        String fileName = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
+        CompanyReader companyReader = new CompanyReader();
+        System.out.println("+++++++++++");
+        StringBuilder sb2 = companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
+        List<Company> listCompaniesNew = companyReader.readCompanies(sb2);
+        for (Company c : listCompaniesNew) {
+            System.out.println(c);
+        }
 
-        PersonReader personFactory=new PersonReader();
-        List<String> list= PersonReader.readPersonsFromFile(fileName);
+        PersonReader personFactory = new PersonReader();
+        List<String> list = PersonReader.readPersonsFromFile(fileName);//////////////////////////////////////
+        System.out.println("\nКоллектив");
         List<Person> listPersons=personFactory.createPersonList(list);
         printListPersons(listPersons);
 
         Sorting sorting=new Sorting();
         sorting.sort(listPersons);
         System.out.println("\nnew");
+
+
+
         printListPersons(listPersons);
 
         Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);
         System.out.println("!!!!!!!!!!!!!!!");
-        CompanyReader companyReader=new CompanyReader();
+
         StringBuilder stringBuilder=companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
 
-        List<Company> listCompany=companyReader.returnCompanies(stringBuilder);
-
-        System.out.println("\nНаши компании");
-        for (Company c:listCompany){
-            System.out.println(c);
-        }
-
-        System.out.println("&&&&&&&&&");
-        StringBuilder stringBuilder1=companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
-        List<Company> companies2=companyReader.returnListCompanies(companyReader.returnContainByTag(stringBuilder1));
-        for (Company c:companies2){
-            System.out.println(c);
-        }
-
-        System.out.println("+++++++++++");
-        StringBuilder sb2=companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
-        List<Company> listCompaniesNew=companyReader.companiesWithCharacteristics(sb2);
-        for (Company c:listCompaniesNew){
-            System.out.println(c);
-        }
 
         Person[] copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){
@@ -147,16 +138,5 @@ public class Main {
 
 }
 
-
-        /*System.out.println(sbCompany);
-        int j=companyReader.numRepeatWord(sbCompany,"<Company>");
-        System.out.println("j="+j);
-
-        for (int k=0;k<j;k++){
-            System.out.println("sbCompany="+sbCompany);
-            StringBuilder sb3=companyReader.getCompanyNameByValue(sbCompany);
-            System.out.println("sb3.toString()="+sb3.toString());
-        }
-         */
 
 

@@ -36,4 +36,14 @@
     </Person>
 </Company>
 
+<Company>
+      <CompanyName>Cats</CompanyName>
+      <Person>
+
+            <surname></surname>
+            <weight>90</weight>
+            <LocalDate>1987-02-19</LocalDate>
+      </Person>
+</Company>
+
 </Companies>

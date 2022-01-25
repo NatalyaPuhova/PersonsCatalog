@@ -23,14 +23,17 @@ public class CompanyReader {
         String firstTag="<"+tag+">";
         String closeTag="</"+tag+">";
         int lenght=tag.length();
-
         int firstInd=stringBuilder.indexOf(firstTag);
         int closeInd=stringBuilder.indexOf(closeTag);
         return sb.append(stringBuilder.substring(firstInd+lenght+2,closeInd));
     }
 
+    private String tagHooks(String tag){
+        return "<"+tag+">";
+    }
+
     public StringBuilder getPersonByValue(StringBuilder sb){
-        if(sb.indexOf("<Person>")!=-1){
+        if(sb.indexOf(tagHooks(TAG_PERSON))!=-1){
             return  getValueByTag(sb,TAG_PERSON);
         }
         return null;
@@ -53,52 +56,47 @@ public class CompanyReader {
         return num;
     }
 
-    public List<StringBuilder> getCompaniesByValue(StringBuilder sb){
-        List<StringBuilder> listSringBuilder=new ArrayList<>();
+    public List<StringBuilder> getCompanyList(StringBuilder sb){
+        List<StringBuilder> listCompanies=new ArrayList<>();
         int num=numRepeatWord(sb,TAG_COMPANY);
         for (int i=0;i<num;i++){
             int closeIndex=sb.indexOf("</"+TAG_COMPANY+">");
             StringBuilder stringBuilder=getValueByTag(sb,TAG_COMPANY);
             sb.delete(0,closeIndex+TAG_COMPANY.length()+3);
-            listSringBuilder.add(stringBuilder);
+            listCompanies.add(stringBuilder);
         }
-        return  listSringBuilder;
+        return  listCompanies;
     }
 
-
-    public StringBuilder getCompanyByValue(StringBuilder sb){
-        return  getValueByTag(sb,TAG_COMPANY);
-    }
-
-    public StringBuilder getNameByValue(StringBuilder sb){
-        if(sb.indexOf("<name>")!=-1){
+    private StringBuilder getNameByValue(StringBuilder sb){
+        if(sb.indexOf(tagHooks(TAG_NAME))!=-1){
             return  getValueByTag(sb,TAG_NAME);
         }
         return null;
     }
-    public StringBuilder getSurnameByValue(StringBuilder sb){
-        if(sb.indexOf("<surname>")!=-1){
+    private StringBuilder getSurnameByValue(StringBuilder sb){
+        if(sb.indexOf(tagHooks(TAG_SURNAME))!=-1){
             return  getValueByTag(sb,TAG_SURNAME);
         }
         return null;
     }
 
-    public StringBuilder getWeightByValue(StringBuilder sb){
-        if(sb.indexOf("<weight>")!=-1){
+    private StringBuilder getWeightByValue(StringBuilder sb){
+        if(sb.indexOf(tagHooks(TAG_WEIGHT))!=-1){
             return  getValueByTag(sb,TAG_WEIGHT);
         }
         return null;
     }
-    public StringBuilder getDateBirthByValue(StringBuilder sb){
-        if (sb.indexOf("<LocalDate>")!=-1){
+    private StringBuilder getDateBirthByValue(StringBuilder sb){
+        if (sb.indexOf(tagHooks(TAG_BIRTH_DATE))!=-1){
             return  getValueByTag(sb,TAG_BIRTH_DATE);
         }
         return null;
     }
 
-    public List<Company> companiesWithCharacteristics(StringBuilder sb2){
-        List<Company> listCompaniesNew=new ArrayList<>();
-        List<StringBuilder> listSbCompanies=getCompaniesByValue(sb2);
+    public List<Company> readCompanies(StringBuilder sb2){
+        List<Company> listCompanies=new ArrayList<>();
+        List<StringBuilder> listSbCompanies=getCompanyList(sb2);
         for (StringBuilder sb:listSbCompanies){
             String name=null;
             String surName=null;
@@ -119,10 +117,10 @@ public class CompanyReader {
                 if (getDateBirthByValue(sbPerson)!=null){
                     dateBirth=LocalDate.parse(getDateBirthByValue(sbPerson).toString());
                 }
-                listCompaniesNew.add(new Company(companyName,new Person(name,surName,weight,dateBirth)));
+                listCompanies.add(new Company(companyName,new Person(name,surName,weight,dateBirth)));
             }
         }
-        return listCompaniesNew;
+        return listCompanies;
     }
 
     public List<StringBuilder> returnContainByTag(StringBuilder stringBuilder){
@@ -139,137 +137,6 @@ public class CompanyReader {
             liststringBuilders.add(partOfStringbuilder);
         }
         return liststringBuilders;
-    }
-
-    public List<Company> returnListCompanies(List<StringBuilder> stringBuilders){//string buiders in companies
-        List<Company> companies=new ArrayList<>();
-        for (StringBuilder sb:stringBuilders){
-            String companyName=null;
-            String name=null;
-            String surname=null;
-            Integer weight=null;
-            LocalDate dateBirth=null;
-            String [] arrayTags=new String[]{"name","surname","weight","LocalDate"};
-            int start=0;
-            int stop=0;
-            int indPerson=sb.indexOf("<Person>");//
-
-
-            if ((start=sb.indexOf("<"+TAG_COMPANY_NAME+">"))!=-1&&(stop=sb.indexOf("</"+TAG_COMPANY_NAME+">"))!=-1){
-                companyName=sb.substring(start+13,stop);
-            }
-            for (String arrayTag:arrayTags){
-                if ((start=sb.indexOf("<"+arrayTag+">",indPerson))!=-1&&((stop=sb.indexOf("</"+arrayTag+">",indPerson)))!=-1){
-                    if((start+arrayTag.length()+2)!=stop){
-                        String value=sb.substring(start+arrayTag.length()+2,stop);
-                        switch (arrayTag){
-                            case ("name")://
-                                name=value;
-                                break;
-                            case ("surname") ://
-                                surname=value;
-                                break;
-                            case ("weight"):
-                                weight=Integer.parseInt(value);
-                                break;
-                            case ("LocalDate"):
-                                dateBirth=LocalDate.parse(value);
-                        }
-                    }
-
-                }
-            }
-            companies.add(new Company(companyName,new Person(name,surname,weight,dateBirth)));
-        }
-        return companies;
-    }
-
-
-
-
-    public  List<Company> returnCompanies(StringBuilder stringBuilder) {
-        List<Company>listCompanies=new ArrayList<>();
-        String companyName=null;
-        String [] arrayTags=new String[]{"name","surname","weight","LocalDate"};
-        while (stringBuilder.indexOf("<Company>")!=-1){
-            int tagPersonIndex;
-            int finishtagPersonIndex;
-            while ((tagPersonIndex=stringBuilder.indexOf("<Person>"))!=-1){
-                int i=stringBuilder.indexOf("<CompanyName>");//
-                int j=stringBuilder.indexOf("</CompanyName>");//
-                finishtagPersonIndex=stringBuilder.indexOf("</Person>");
-                if (i!=-1&&j!=-1){
-                    companyName=stringBuilder.substring(i+13,j).trim();
-                }
-                String info;
-                String name=null;
-                String surname=null;
-                int weight=Integer.parseInt("0");
-                LocalDate dateBirth=null;
-                for (int k=0;k<arrayTags.length;k++ ){
-                    int start=stringBuilder.indexOf("<"+arrayTags[k]+">",tagPersonIndex);
-                    int stop=stringBuilder.indexOf("</"+arrayTags[k]+">",tagPersonIndex);
-                    info=stringBuilder.substring(start+arrayTags[k].length()+2,stop).trim();
-
-                    if (info!=null&&!info.equals("")){
-                        switch (arrayTags[k]){
-                            case "name":
-                                if (stop>finishtagPersonIndex){
-                                    name=null;
-                                }
-                                else
-                                name=info;
-                                break;
-                            case "surname":
-                                if (stop>finishtagPersonIndex){
-                                    surname=null;
-                                }
-                                else
-                                    surname=info;
-                                break;
-                            case  "weight":
-                                if (stop>finishtagPersonIndex){
-                                    weight=0;
-                                }
-                                else
-                                    weight=Integer.parseInt(info);
-                                break;
-                            case "LocalDate":
-                                if (stop>finishtagPersonIndex){
-                                    dateBirth=null;
-                                }
-                                else
-                                    dateBirth=LocalDate.parse(info);
-                                break;
-                            default:
-                                System.out.println("неизвестный тег");
-                        }
-                    }
-                    else {
-                        switch (arrayTags[k]){
-                            case "name":
-                                name=null;
-                                break;
-                            case "surname":
-                                surname=null;
-                                break;
-                            case  "weight":
-                                weight=Integer.parseInt("0");//////////////////////////////////
-                                break;
-                            case "LocalDate":
-                                dateBirth=null;
-                                break;
-                            default:
-                                System.out.println("неизвестный тег");
-                        }
-                    }
-                }
-                stringBuilder.delete(stringBuilder.indexOf("<Company>"),stringBuilder.indexOf("</Company>")+10);
-                Person personHead=new Person(name,surname,weight,dateBirth);
-                listCompanies.add(new Company(companyName,personHead));
-            }
-        }
-        return listCompanies;
     }
 
     public StringBuilder readXmlFile(String fileName){
@@ -292,19 +159,6 @@ public class CompanyReader {
         return stringBuilder;
     }
 }
-
-/*
-
-    public String returnPersonCharacteristics(List<StringBuilder> listStringBuilders){
-        String companyName=null;
-        for (int i=0;i<listStringBuilders.size();i++){
-           StringBuilder myStringBuilder=listStringBuilders.get(i);
-           if ((myStringBuilder.indexOf(TAG_COMPANY_NAME)!=0&&myStringBuilder.indexOf("/"+TAG_COMPANY_NAME)!=0)){
-               companyName=myStringBuilder.substring(myStringBuilder.indexOf(TAG_COMPANY_NAME),myStringBuilder.indexOf("/"+TAG_COMPANY_NAME));
-           }
-        }
-        System.out.println(companyName);
-        return companyName;
-    }
-
- */
+// public StringBuilder getCompanyByValue(StringBuilder sb){
+//        return  getValueByTag(sb,TAG_COMPANY);
+//    }

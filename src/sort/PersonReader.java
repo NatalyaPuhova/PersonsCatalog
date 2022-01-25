@@ -133,7 +133,7 @@ public class PersonReader {
             System.out.println("ошибка");
             exception.printStackTrace();
         }
-        System.out.println(listNamesSurnames);
+
         return listNamesSurnames;
     }
 
