@@ -7,32 +7,46 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        String companyXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml";
         String personXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\personXML.xml";
         String fileName = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
         CompanyReader companyReader = new CompanyReader();
 
         System.out.println("+++++++++++");
         StringBuilder sb2 = companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
-        List<Company> listCompaniesNew = companyReader.readCompanies(sb2);
+        /*List<Company> listCompaniesNew = companyReader.readCompanies(sb2);
         for (Company c : listCompaniesNew) {
             System.out.println(c);
         }
 
+         */
 
-        System.out.println("\nКоллектив нью");//
+        System.out.println("\nКоллектив нью");
         PersonReader personReader=new PersonReader();
-        List<Person> personList=personReader.getPersonByValue(personXML);
+        StringBuilder sb3=personReader.returnStringBuilder(personXML);
+        List<Person> personList=personReader.getListPersonByValueNew(sb3);
         for (Person p:personList){
             System.out.println(p);//
         }
 
+        System.out.println("\nКоллектив нью22");//
+        List<Person> personList2=personReader.getEntities(personXML);
+        for (Person p:personList2){
+            System.out.println(p);//
+        }
 
-
-
-
+        System.out.println("\ncompany22");//
+        List<Company> personList3=companyReader.getEntities(companyXML);
+        int k=1;
+        for (Company c:personList3){
+            System.out.println("\nk="+k);
+            System.out.println(c);//
+            k++;
+        }
 
         PersonReader personFactory = new PersonReader();
-        List<String> list = PersonReader.readPersonsFromFile(fileName);
+        PersonReader personReader1=new PersonReader();
+        List<String> list = personReader1.readPersonsFromFile(fileName);
         System.out.println("\nКоллектив");
         List<Person> listPersons=personFactory.createPersonList(list);
         printListPersons(listPersons);
@@ -40,16 +54,11 @@ public class Main {
         Sorting sorting=new Sorting();
         sorting.sort(listPersons);
         System.out.println("\nnew");
-
-
-
         printListPersons(listPersons);
+
 
         Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);
         System.out.println("!!!!!!!!!!!!!!!");
-
-        StringBuilder stringBuilder=companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
-
 
         Person[] copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){

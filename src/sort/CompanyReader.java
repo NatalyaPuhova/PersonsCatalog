@@ -4,19 +4,31 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyReader extends XMLreader {
-
-
+public class CompanyReader extends XMLreader <Company> {
     public static final String TAG_COMPANY="Company";
     public static final String TAG_COMPANY_NAME="CompanyName";
+    public List<Company> getEntities(String fileName){
+        List<Company> companyList=new ArrayList<>();
+        StringBuilder sb=readXmlFile(fileName);
+        System.out.println("sb="+sb);
+        int k=numRepeatWord(sb,TAG_COMPANY);
+        for (int i=0;i<k;i++){
+            System.out.println("i="+(i+1));
+            StringBuilder stringBuilder=getValueByTag(sb,TAG_COMPANY);
+            String companyName=getCompanyNameByValue(stringBuilder).toString();
+            Person person=getPerson(stringBuilder);
+            int stopIndex=sb.indexOf("</"+TAG_COMPANY+">");
+            sb.delete(0,stopIndex+3+TAG_COMPANY.length());
+            companyList.add(new Company(companyName,person));
+        }
+        return companyList;
+    }
 
-    public StringBuilder getCompanyNameByValue(StringBuilder sb){
+    private StringBuilder getCompanyNameByValue(StringBuilder sb){
         return  getValueByTag(sb,TAG_COMPANY_NAME);
     }
 
-
-
-    public List<StringBuilder> getCompanyList(StringBuilder sb){
+    private List<StringBuilder> getCompanyList(StringBuilder sb){
         List<StringBuilder> listCompanies=new ArrayList<>();
         int num=numRepeatWord(sb,TAG_COMPANY);
         for (int i=0;i<num;i++){
@@ -56,28 +68,4 @@ public class CompanyReader extends XMLreader {
         }
         return listCompanies;
     }
-
-
-
-
 }
-// public StringBuilder getCompanyByValue(StringBuilder sb){
-//        return  getValueByTag(sb,TAG_COMPANY);
-//    }
-/*
- public List<StringBuilder> returnContainByTag(StringBuilder stringBuilder){
-        String firstTag="<"+TAG+">";
-        String closeTag="</"+TAG+">";
-        System.out.println(5);
-        List<StringBuilder> liststringBuilders=new ArrayList<>();
-        int startFrom=-1;
-        while (stringBuilder.indexOf(firstTag,startFrom+1)!=-1&&stringBuilder.indexOf(closeTag,startFrom+1)!=-1){
-            int start=stringBuilder.indexOf(firstTag,startFrom+1);
-            startFrom=stringBuilder.indexOf(closeTag,startFrom+1);
-            StringBuilder partOfStringbuilder=new StringBuilder();
-            partOfStringbuilder.append(stringBuilder.substring(start,startFrom));
-            liststringBuilders.add(partOfStringbuilder);
-        }
-        return liststringBuilders;
-    }
- */

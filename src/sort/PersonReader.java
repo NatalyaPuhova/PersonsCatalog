@@ -9,13 +9,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonReader extends XMLreader {
+public class PersonReader extends XMLreader <Person> {
+    public List<Person> getEntities(String fileName){
+        StringBuilder sb=returnStringBuilder(fileName);
+        return getListPersonByValueNew(sb);
+    }
 
-
-
-
-
-    public List<Person> createPersonList (List<String> listFromFile){
+    protected List<Person> createPersonList (List<String> listFromFile){
         List<Person> listPersons=new ArrayList<>();
         String name;
         String surName;
@@ -30,16 +30,13 @@ public class PersonReader extends XMLreader {
             int year=Integer.parseInt(arrayDateBirth[0]);
             int month=Integer.parseInt(arrayDateBirth[1]);
             int date=Integer.parseInt(arrayDateBirth[2]);
-
             dateBirth=LocalDate.of(year,month,date);
             listPersons.add(new Person(name,surName,weight,dateBirth));
         }
-
         return listPersons;
     }
 
-    public  Person[] readPersonsFromFile2(String fileName) {
-
+    protected   Person[] readPersonsFromFile2(String fileName) {
         List<String> listNamesSurnamesDates=new ArrayList<>();
         try {
             BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
@@ -51,12 +48,10 @@ public class PersonReader extends XMLreader {
         catch (FileNotFoundException fileNotFoundException){
             System.out.println("нет файла");
             fileNotFoundException.printStackTrace();
-
         }
         catch (IOException exception){
             System.out.println("ошибка");
             exception.printStackTrace();
-
         }
         int size=listNamesSurnamesDates.size();
         Person[] arrayPersons=new Person[size];
@@ -77,9 +72,7 @@ public class PersonReader extends XMLreader {
         return arrayPersons;
     }
 
-
-
-    public static List<String> readPersonsFromFile(String fileName) {
+    protected  List<String> readPersonsFromFile(String fileName) {
         List<String> listNamesSurnames=new ArrayList<>();
         try {
             BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
@@ -96,78 +89,7 @@ public class PersonReader extends XMLreader {
             System.out.println("ошибка");
             exception.printStackTrace();
         }
-
         return listNamesSurnames;
     }
-
-
-
-
-
 }
-
-/*
-
-    public  List<Person> readPersonsFromFile3XML(String fileName3) {
-        String [] arrayTags=new String[]{"name","surname","weight","LocalDate"};
-        List<Person> personList=new ArrayList<>();
-        String name=null;
-        String surname=null;
-        int weight=0;
-        LocalDate dateBirth=null;
-        bufferReadFromFile(fileName3);
-        for (int i=stringBuilder.indexOf("<Person>");i<stringBuilder.indexOf("</Person>") ;i++){
-            for (int j=0;j<arrayTags.length;j++){
-                int start=stringBuilder.indexOf("<"+arrayTags[j]+">",i);
-                int stop=stringBuilder.indexOf("</"+arrayTags[j]+">",i);
-                String info=stringBuilder.substring(start+arrayTags[j].length()+2,stop);
-
-                switch (arrayTags[j]){
-                    case "name":
-                        name=info;
-                        break;
-                    case "surname":
-                        surname=info;
-                        break;
-                    case "weight":
-                        weight=Integer.parseInt(info);
-                        break;
-                    case "LocalDate":
-                        dateBirth=LocalDate.parse(info);
-                        break;
-                    default:
-                        System.out.println("что-то неизвестное");
-                }
-                stringBuilder.delete(start,stop+arrayTags[j].length()+3);
-            }
-            personList.add(new Person(name,surname,weight,dateBirth));
-            int n1=stringBuilder.indexOf("<Person>");
-            int n2=stringBuilder.indexOf("</Person>")+9;
-            stringBuilder.delete(n1,n2);
-        }
-        return personList;
-
-    }
- */
-
-/*
-  private  static StringBuilder bufferReadFromFile(String fileName3){
-        try {
-            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName3));
-            while ((str=bufferedReader.readLine())!=null){
-                stringBuilder.append(str);
-            }
-            System.out.println("stringBuilder="+stringBuilder);
-        }
-        catch (FileNotFoundException fileNotFoundException){
-            System.out.println("нет файла");
-            fileNotFoundException.printStackTrace();
-        }
-        catch (IOException exception){
-            System.out.println("ошибка");
-            exception.printStackTrace();
-        }
-        return stringBuilder;
-    }
- */
 
