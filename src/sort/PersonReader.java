@@ -4,13 +4,16 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonReader {
-    private  static StringBuilder stringBuilder=new StringBuilder();
-    private static String str;
+public class PersonReader extends XMLreader {
+
+
+
+
 
     public List<Person> createPersonList (List<String> listFromFile){
         List<Person> listPersons=new ArrayList<>();
@@ -75,6 +78,36 @@ public class PersonReader {
     }
 
 
+
+    public static List<String> readPersonsFromFile(String fileName) {
+        List<String> listNamesSurnames=new ArrayList<>();
+        try {
+            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
+            String str;
+            while ((str=bufferedReader.readLine())!=null){
+                listNamesSurnames.add(str);
+            }
+        }
+        catch (FileNotFoundException fileNotFoundException){
+            System.out.println("нет файла");
+            fileNotFoundException.printStackTrace();
+        }
+        catch (IOException exception){
+            System.out.println("ошибка");
+            exception.printStackTrace();
+        }
+
+        return listNamesSurnames;
+    }
+
+
+
+
+
+}
+
+/*
+
     public  List<Person> readPersonsFromFile3XML(String fileName3) {
         String [] arrayTags=new String[]{"name","surname","weight","LocalDate"};
         List<Person> personList=new ArrayList<>();
@@ -115,30 +148,10 @@ public class PersonReader {
         return personList;
 
     }
+ */
 
-    public static List<String> readPersonsFromFile(String fileName) {
-        List<String> listNamesSurnames=new ArrayList<>();
-        try {
-            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
-            String str;
-            while ((str=bufferedReader.readLine())!=null){
-                listNamesSurnames.add(str);
-            }
-        }
-        catch (FileNotFoundException fileNotFoundException){
-            System.out.println("нет файла");
-            fileNotFoundException.printStackTrace();
-        }
-        catch (IOException exception){
-            System.out.println("ошибка");
-            exception.printStackTrace();
-        }
-
-        return listNamesSurnames;
-    }
-
-
-    private  static StringBuilder bufferReadFromFile(String fileName3){
+/*
+  private  static StringBuilder bufferReadFromFile(String fileName3){
         try {
             BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName3));
             while ((str=bufferedReader.readLine())!=null){
@@ -156,7 +169,5 @@ public class PersonReader {
         }
         return stringBuilder;
     }
-
-
-}
+ */
 

@@ -11,10 +11,10 @@
     </Person>
 
     <Person>
-        <name>Николай</name>
+        <name></name>
         <surname>Сидоров</surname>
-        <weight>65</weight>
-        <LocalDate>1986-01-12</LocalDate>
+        <weight></weight>
+        <LocalDate>1</LocalDate>
     </Person>
 
     <Person>

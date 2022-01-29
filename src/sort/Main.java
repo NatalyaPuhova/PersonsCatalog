@@ -7,8 +7,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        String personXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\personXML.xml";
         String fileName = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
         CompanyReader companyReader = new CompanyReader();
+
         System.out.println("+++++++++++");
         StringBuilder sb2 = companyReader.readXmlFile("C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml");
         List<Company> listCompaniesNew = companyReader.readCompanies(sb2);
@@ -16,8 +18,21 @@ public class Main {
             System.out.println(c);
         }
 
+
+        System.out.println("\nКоллектив нью");//
+        PersonReader personReader=new PersonReader();
+        List<Person> personList=personReader.getPersonByValue(personXML);
+        for (Person p:personList){
+            System.out.println(p);//
+        }
+
+
+
+
+
+
         PersonReader personFactory = new PersonReader();
-        List<String> list = PersonReader.readPersonsFromFile(fileName);//////////////////////////////////////
+        List<String> list = PersonReader.readPersonsFromFile(fileName);
         System.out.println("\nКоллектив");
         List<Person> listPersons=personFactory.createPersonList(list);
         printListPersons(listPersons);

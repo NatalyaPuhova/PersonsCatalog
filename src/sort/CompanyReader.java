@@ -1,60 +1,20 @@
 package sort;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyReader {
-    public static final String TAG="Company";
-    public static final String TAG_PERSON="Person";
-    public static final String TAG_NAME="name";
-    public static final String TAG_SURNAME="surname";
-    public static final String TAG_WEIGHT="weight";
-    public static final String TAG_BIRTH_DATE="LocalDate";
+public class CompanyReader extends XMLreader {
+
+
     public static final String TAG_COMPANY="Company";
     public static final String TAG_COMPANY_NAME="CompanyName";
-
-    public StringBuilder getValueByTag(StringBuilder stringBuilder, String tag){
-        StringBuilder sb=new StringBuilder();
-        String firstTag="<"+tag+">";
-        String closeTag="</"+tag+">";
-        int lenght=tag.length();
-        int firstInd=stringBuilder.indexOf(firstTag);
-        int closeInd=stringBuilder.indexOf(closeTag);
-        return sb.append(stringBuilder.substring(firstInd+lenght+2,closeInd));
-    }
-
-    private String tagHooks(String tag){
-        return "<"+tag+">";
-    }
-
-    public StringBuilder getPersonByValue(StringBuilder sb){
-        if(sb.indexOf(tagHooks(TAG_PERSON))!=-1){
-            return  getValueByTag(sb,TAG_PERSON);
-        }
-        return null;
-    }
 
     public StringBuilder getCompanyNameByValue(StringBuilder sb){
         return  getValueByTag(sb,TAG_COMPANY_NAME);
     }
 
-    public int numRepeatWord (StringBuilder sb, String word){
-        String str=sb.toString();
-        int num=0;
-        int ind;
-        int startInd=0;
-        System.out.println(str.indexOf("<"+word+">"));
-        while ((ind=str.indexOf("<"+word+">",startInd))!=-1){
-            num++;
-            startInd=startInd+ind+1;
-        }
-        return num;
-    }
+
 
     public List<StringBuilder> getCompanyList(StringBuilder sb){
         List<StringBuilder> listCompanies=new ArrayList<>();
@@ -66,32 +26,6 @@ public class CompanyReader {
             listCompanies.add(stringBuilder);
         }
         return  listCompanies;
-    }
-
-    private StringBuilder getNameByValue(StringBuilder sb){
-        if(sb.indexOf(tagHooks(TAG_NAME))!=-1){
-            return  getValueByTag(sb,TAG_NAME);
-        }
-        return null;
-    }
-    private StringBuilder getSurnameByValue(StringBuilder sb){
-        if(sb.indexOf(tagHooks(TAG_SURNAME))!=-1){
-            return  getValueByTag(sb,TAG_SURNAME);
-        }
-        return null;
-    }
-
-    private StringBuilder getWeightByValue(StringBuilder sb){
-        if(sb.indexOf(tagHooks(TAG_WEIGHT))!=-1){
-            return  getValueByTag(sb,TAG_WEIGHT);
-        }
-        return null;
-    }
-    private StringBuilder getDateBirthByValue(StringBuilder sb){
-        if (sb.indexOf(tagHooks(TAG_BIRTH_DATE))!=-1){
-            return  getValueByTag(sb,TAG_BIRTH_DATE);
-        }
-        return null;
     }
 
     public List<Company> readCompanies(StringBuilder sb2){
@@ -123,7 +57,15 @@ public class CompanyReader {
         return listCompanies;
     }
 
-    public List<StringBuilder> returnContainByTag(StringBuilder stringBuilder){
+
+
+
+}
+// public StringBuilder getCompanyByValue(StringBuilder sb){
+//        return  getValueByTag(sb,TAG_COMPANY);
+//    }
+/*
+ public List<StringBuilder> returnContainByTag(StringBuilder stringBuilder){
         String firstTag="<"+TAG+">";
         String closeTag="</"+TAG+">";
         System.out.println(5);
@@ -138,27 +80,4 @@ public class CompanyReader {
         }
         return liststringBuilders;
     }
-
-    public StringBuilder readXmlFile(String fileName){
-        StringBuilder stringBuilder=new StringBuilder();
-        try {
-            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
-            String str;
-            while ((str=bufferedReader.readLine())!=null){
-                stringBuilder.append(str);
-            }
-        }
-        catch (FileNotFoundException fileNotFoundException){
-            System.out.println("нет файла");
-            fileNotFoundException.printStackTrace();
-        }
-        catch (IOException exception){
-            System.out.println("ошибка");
-            exception.printStackTrace();
-        }
-        return stringBuilder;
-    }
-}
-// public StringBuilder getCompanyByValue(StringBuilder sb){
-//        return  getValueByTag(sb,TAG_COMPANY);
-//    }
+ */
