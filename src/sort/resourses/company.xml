@@ -46,4 +46,16 @@
       </Person>
 </Company>
 
+
+<Company>
+        <CompanyName>Pots</CompanyName>
+        <Person>
+
+            <surname>Маша</surname>
+            <weight>900</weight>
+            <LocalDate></LocalDate>
+        </Person>
+</Company>
+
+
 </Companies>

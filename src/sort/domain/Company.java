@@ -1,4 +1,4 @@
-package sort;
+package sort.domain;
 
 
 public class Company {

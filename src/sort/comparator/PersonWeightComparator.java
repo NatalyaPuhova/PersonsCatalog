@@ -1,4 +1,6 @@
-package sort;
+package sort.comparator;
+
+import sort.domain.Person;
 
 import java.util.Comparator;
 

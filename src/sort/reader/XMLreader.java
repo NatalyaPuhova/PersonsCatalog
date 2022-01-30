@@ -1,4 +1,6 @@
-package sort;
+package sort.reader;
+
+import sort.domain.Person;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -97,11 +99,9 @@ public abstract class XMLreader <T> {
         int num=0;
         int ind;
         int startInd=0;
-
-        System.out.println(str.indexOf("<"+word+">"));
         while ((ind=str.indexOf("<"+word+">",startInd))!=-1){
             num++;
-            startInd=startInd+ind+1;
+            startInd=startInd+ind;
         }
         return num;
     }
@@ -113,7 +113,7 @@ public abstract class XMLreader <T> {
     }
 
 
-    protected   Person getPerson(StringBuilder sb){
+    protected Person getPerson(StringBuilder sb){
         //int num=numRepeatWord(sb,"/"+TAG_PERSON);
         StringBuilder sbPerson=getValueByTag(sb,TAG_PERSON);
         String name=null;
@@ -162,7 +162,8 @@ public abstract class XMLreader <T> {
 
     protected List<Person> getListPersonByValueNew(StringBuilder sb){
         List<Person> personList=new ArrayList<>();
-        for (int i=0;i<3;i++){
+        int num=numRepeatWord(sb,TAG_PERSON);
+        for (int i=0;i<num;i++){
             personList.add(getPerson(sb));
         }
         return personList;

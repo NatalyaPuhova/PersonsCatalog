@@ -1,4 +1,4 @@
-package sort;
+package sort.test;
 
 import java.time.LocalDate;
 

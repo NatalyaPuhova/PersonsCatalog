@@ -1,17 +1,19 @@
-package sort;
+package sort.reader;
 
-import java.time.LocalDate;
+import sort.domain.Company;
+import sort.domain.Person;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyReader extends XMLreader <Company> {
+public class CompanyReader extends XMLreader<Company> {
     public static final String TAG_COMPANY="Company";
     public static final String TAG_COMPANY_NAME="CompanyName";
     public List<Company> getEntities(String fileName){
         List<Company> companyList=new ArrayList<>();
         StringBuilder sb=readXmlFile(fileName);
-        System.out.println("sb="+sb);
         int k=numRepeatWord(sb,TAG_COMPANY);
+        System.out.println("company k="+k);
         for (int i=0;i<k;i++){
             System.out.println("i="+(i+1));
             StringBuilder stringBuilder=getValueByTag(sb,TAG_COMPANY);
@@ -28,19 +30,11 @@ public class CompanyReader extends XMLreader <Company> {
         return  getValueByTag(sb,TAG_COMPANY_NAME);
     }
 
-    private List<StringBuilder> getCompanyList(StringBuilder sb){
-        List<StringBuilder> listCompanies=new ArrayList<>();
-        int num=numRepeatWord(sb,TAG_COMPANY);
-        for (int i=0;i<num;i++){
-            int closeIndex=sb.indexOf("</"+TAG_COMPANY+">");
-            StringBuilder stringBuilder=getValueByTag(sb,TAG_COMPANY);
-            sb.delete(0,closeIndex+TAG_COMPANY.length()+3);
-            listCompanies.add(stringBuilder);
-        }
-        return  listCompanies;
-    }
 
-    public List<Company> readCompanies(StringBuilder sb2){
+
+}
+/*
+public List<Company> readCompanies(StringBuilder sb2){
         List<Company> listCompanies=new ArrayList<>();
         List<StringBuilder> listSbCompanies=getCompanyList(sb2);
         for (StringBuilder sb:listSbCompanies){
@@ -68,4 +62,19 @@ public class CompanyReader extends XMLreader <Company> {
         }
         return listCompanies;
     }
-}
+ */
+
+/*
+private List<StringBuilder> getCompanyList(StringBuilder sb){
+        List<StringBuilder> listCompanies=new ArrayList<>();
+        int num=numRepeatWord(sb,TAG_COMPANY);
+        for (int i=0;i<num;i++){
+            int closeIndex=sb.indexOf("</"+TAG_COMPANY+">");
+            StringBuilder stringBuilder=getValueByTag(sb,TAG_COMPANY);
+            sb.delete(0,closeIndex+TAG_COMPANY.length()+3);
+            listCompanies.add(stringBuilder);
+        }
+        return  listCompanies;
+    }
+
+ */

@@ -1,8 +1,6 @@
-package sort;
+package sort.domain;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Person implements Comparable<Person> {
     private String name;
