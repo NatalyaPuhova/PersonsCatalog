@@ -18,6 +18,10 @@ public abstract class XMLreader <T> {
     private static final String TAG_SURNAME="surname";
     private static final String TAG_WEIGHT="weight";
     private static final String TAG_BIRTH_DATE="LocalDate";
+    private static final String TAG_ADRESS="adress";
+    private static final String TAG_AGE="age";
+    private static final String TAG_CUSTOMER="Customer";
+    private static final String TAG_AREA="area";
 
     public abstract List<T> getEntities(String fileName);//////////////////////////////
 
@@ -79,6 +83,12 @@ public abstract class XMLreader <T> {
         }
         return null;
     }
+    protected StringBuilder getCustomerByValue(StringBuilder sb){
+        if(sb.indexOf(tagHooks(TAG_CUSTOMER))!=-1){
+            return  getValueByTag(sb,TAG_CUSTOMER);
+        }
+        return null;
+    }
 
     protected StringBuilder getWeightByValue(StringBuilder sb){
 
@@ -87,9 +97,28 @@ public abstract class XMLreader <T> {
         }
         return null;
     }
+    protected StringBuilder getAgeByValue(StringBuilder sb){
+
+        if(sb.indexOf(tagHooks(TAG_AGE))!=-1){
+            return  getValueByTag(sb,TAG_AGE);
+        }
+        return null;
+    }
     protected StringBuilder getDateBirthByValue(StringBuilder sb){
         if (sb.indexOf(tagHooks(TAG_BIRTH_DATE))!=-1){
             return  getValueByTag(sb,TAG_BIRTH_DATE);
+        }
+        return null;
+    }
+    protected StringBuilder getAdressByValue(StringBuilder sb){
+        if(sb.indexOf(tagHooks(TAG_ADRESS))!=-1){
+            return  getValueByTag(sb,TAG_ADRESS);
+        }
+        return null;
+    }
+    public StringBuilder getAreaByValue(StringBuilder sb){/////////////////proteted
+        if(sb.indexOf(tagHooks(TAG_AREA))!=-1){
+            return  getValueByTag(sb,TAG_AREA);
         }
         return null;
     }

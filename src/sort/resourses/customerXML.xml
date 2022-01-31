@@ -1,0 +1,36 @@
+<Customers>
+    <jj>
+        <name>hjfgjhghj</name>
+    </jj>
+    <Customer>
+        <name>Анна</name>
+        <area>ELECTRICIAN </area>
+        <adress>прПобеды</adress>
+        <age>17</age>
+    </Customer>
+
+    <Customer>
+        <name>Вано</name>
+        <area>ENGINEER</area>
+        <adress>Чкалова</adress>
+        <age>67</age>
+    </Customer>
+
+    <Customer>
+
+        <name> </name>
+        <adress>Ленина</adress>
+        <age>5</age>
+        <area>BUILDER</area>
+
+    </Customer>
+
+    <Customer>
+        <name>nnnn</name>
+        <adress>Московский</adress>
+        <age>  5k</age>
+        <area>BjjjjjUILDER</area>
+    </Customer>
+
+
+</Customers>

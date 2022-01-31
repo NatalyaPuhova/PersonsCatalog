@@ -2,9 +2,12 @@ package sort;
 import sort.comparator.PersonDateComparator;
 import sort.comparator.PersonSurnameComparator;
 import sort.comparator.PersonWeightComparator;
+import sort.domain.Area;
 import sort.domain.Company;
+import sort.domain.Customer;
 import sort.domain.Person;
 import sort.reader.CompanyReader;
+import sort.reader.CustomerReader;
 import sort.reader.PersonReader;
 import sort.sorting.Sorting;
 import sort.test.CheckProperties;
@@ -18,15 +21,21 @@ public class Main {
     public static void main(String[] args) {
         String companyXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\company.xml";
         String personXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\personXML.xml";
+        String customerXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\customerXML.xml";
         String fileName = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
         CompanyReader companyReader = new CompanyReader();
         PersonReader personReader=new PersonReader();
 
-        System.out.println("\nКоллектив нью22");//
+        Area [] areas=Area.values();
+
+
+        /*System.out.println("\nКоллектив нью22");//
         List<Person> personList2=personReader.getEntities(personXML);//*
         for (Person p:personList2){
             System.out.println(p);//
         }
+
+
 
         System.out.println("\ncompany22");//
         List<Company> personList3=companyReader.getEntities(companyXML);//*
@@ -36,6 +45,19 @@ public class Main {
             System.out.println(c);//
             k++;
         }
+
+         */
+
+        System.out.println("\nCustomer");
+        CustomerReader customerReader=new CustomerReader();
+        List<Customer> customerList=customerReader.getEntities(customerXML);
+        int m=1;
+        for (Customer c:customerList){
+            System.out.println("\nm="+m);
+            System.out.println(c);//
+            m++;
+        }
+
 
         PersonReader personFactory = new PersonReader();
         PersonReader personReader1=new PersonReader();
