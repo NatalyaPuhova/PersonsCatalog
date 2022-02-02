@@ -2,16 +2,12 @@ package sort.reader;
 
 import sort.domain.Person;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class XMLreader <T> {
+public abstract class XMLreader <T> extends FileReader {
 
     private static final String TAG_PERSON="Person";
     private static final String TAG_NAME="name";
@@ -25,25 +21,6 @@ public abstract class XMLreader <T> {
 
     public abstract List<T> getEntities(String fileName);//////////////////////////////
 
-    protected StringBuilder readXmlFile(String fileName){
-        StringBuilder stringBuilder=new StringBuilder();
-        try {
-            BufferedReader bufferedReader=new BufferedReader(new FileReader(fileName));
-            String str;
-            while ((str=bufferedReader.readLine())!=null){
-                stringBuilder.append(str);
-            }
-        }
-        catch (FileNotFoundException fileNotFoundException){
-            System.out.println("нет файла");
-            fileNotFoundException.printStackTrace();
-        }
-        catch (IOException exception){
-            System.out.println("ошибка");
-            exception.printStackTrace();
-        }
-        return stringBuilder;
-    }
 
     protected StringBuilder getValueByTag(StringBuilder stringBuilder, String tag){
 
@@ -65,12 +42,6 @@ public abstract class XMLreader <T> {
         return "<"+tag+">";
     }
 
-    protected StringBuilder getPersonByValue(StringBuilder sb){
-        if(sb.indexOf(tagHooks(TAG_PERSON))!=-1){
-            return  getValueByTag(sb,TAG_PERSON);
-        }
-        return null;
-    }
     protected StringBuilder getNameByValue(StringBuilder sb){
         if(sb.indexOf(tagHooks(TAG_NAME))!=-1){
             return  getValueByTag(sb,TAG_NAME);
@@ -91,14 +62,12 @@ public abstract class XMLreader <T> {
     }
 
     protected StringBuilder getWeightByValue(StringBuilder sb){
-
         if(sb.indexOf(tagHooks(TAG_WEIGHT))!=-1){
             return  getValueByTag(sb,TAG_WEIGHT);
         }
         return null;
     }
     protected StringBuilder getAgeByValue(StringBuilder sb){
-
         if(sb.indexOf(tagHooks(TAG_AGE))!=-1){
             return  getValueByTag(sb,TAG_AGE);
         }
@@ -136,14 +105,7 @@ public abstract class XMLreader <T> {
     }
 
 
-
-    protected StringBuilder returnStringBuilder(String fileName){
-        return readXmlFile(fileName);
-    }
-
-
     protected Person getPerson(StringBuilder sb){
-        //int num=numRepeatWord(sb,"/"+TAG_PERSON);
         StringBuilder sbPerson=getValueByTag(sb,TAG_PERSON);
         String name=null;
         try {

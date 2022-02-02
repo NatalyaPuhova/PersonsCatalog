@@ -4,14 +4,14 @@
     </jj>
     <Customer>
         <name>Анна</name>
-        <area>ELECTRICIAN </area>
+        <area>Elect </area>
         <adress>прПобеды</adress>
         <age>17</age>
     </Customer>
 
     <Customer>
         <name>Вано</name>
-        <area>ENGINEER</area>
+        <area>Eng</area>
         <adress>Чкалова</adress>
         <age>67</age>
     </Customer>
@@ -21,7 +21,7 @@
         <name> </name>
         <adress>Ленина</adress>
         <age>5</age>
-        <area>BUILDER</area>
+        <area>Build</area>
 
     </Customer>
 

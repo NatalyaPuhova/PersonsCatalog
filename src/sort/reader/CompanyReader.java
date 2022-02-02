@@ -11,7 +11,7 @@ public class CompanyReader extends XMLreader<Company> {
     public static final String TAG_COMPANY_NAME="CompanyName";
     public List<Company> getEntities(String fileName){
         List<Company> companyList=new ArrayList<>();
-        StringBuilder sb=readXmlFile(fileName);
+        StringBuilder sb=readFile(fileName);
         int k=numRepeatWord(sb,TAG_COMPANY);
         System.out.println("company k="+k);
         for (int i=0;i<k;i++){

@@ -6,9 +6,7 @@ import sort.domain.Area;
 import sort.domain.Company;
 import sort.domain.Customer;
 import sort.domain.Person;
-import sort.reader.CompanyReader;
-import sort.reader.CustomerReader;
-import sort.reader.PersonReader;
+import sort.reader.*;
 import sort.sorting.Sorting;
 import sort.test.CheckProperties;
 
@@ -29,13 +27,11 @@ public class Main {
         Area [] areas=Area.values();
 
 
-        /*System.out.println("\nКоллектив нью22");//
+        System.out.println("\nКоллектив нью22");//
         List<Person> personList2=personReader.getEntities(personXML);//*
         for (Person p:personList2){
             System.out.println(p);//
         }
-
-
 
         System.out.println("\ncompany22");//
         List<Company> personList3=companyReader.getEntities(companyXML);//*
@@ -46,22 +42,20 @@ public class Main {
             k++;
         }
 
-         */
-
         System.out.println("\nCustomer");
         CustomerReader customerReader=new CustomerReader();
         List<Customer> customerList=customerReader.getEntities(customerXML);
         int m=1;
         for (Customer c:customerList){
             System.out.println("\nm="+m);
-            System.out.println(c);//
+            System.out.println(c);
             m++;
         }
 
+        TXTreader txTreader=new TXTreader();
 
         PersonReader personFactory = new PersonReader();
-        PersonReader personReader1=new PersonReader();
-        List<String> list = personReader1.readPersonsFromFile(fileName);
+        List<String> list = txTreader.readPersonsFromFile(fileName);//
         System.out.println("\nКоллектив");
         List<Person> listPersons=personFactory.createPersonList(list);
         printListPersons(listPersons);
@@ -72,7 +66,7 @@ public class Main {
         printListPersons(listPersons);
 
 
-        Person[] arrayPersons=personFactory.readPersonsFromFile2(fileName);
+        Person[] arrayPersons=txTreader.readPersonsFromFile2(fileName);//
         System.out.println("!!!!!!!!!!!!!!!");
 
         Person[] copyArrayPersons=new Person[arrayPersons.length];

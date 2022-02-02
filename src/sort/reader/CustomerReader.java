@@ -30,9 +30,13 @@ public class CustomerReader extends XMLreader <Customer>{
                 System.out.println("NullPointerException     "+ exception.getClass().getName());
 
             }
-            Area area=null;
+            Area areaName=null;
+            String str=null;
+
             try {
-                area=Area.valueOf(getAreaByValue(sbCustomer).toString().trim());
+                str=getAreaByValue(sbCustomer).toString().trim();
+                areaName=Area.getEnumByCode(str);
+                System.out.println("areaName="+areaName);
             }
             catch (NullPointerException exception){
                 System.out.println("NullPointerException       "+ exception.getClass().getName());
@@ -43,7 +47,7 @@ public class CustomerReader extends XMLreader <Customer>{
 
             }
             System.out.println("age="+age);
-            customerList.add(new Customer(name,adress,age,area));
+            customerList.add(new Customer(name,adress,age,areaName));
             int indStop=sb.indexOf("/"+TAG_CUSTOMER);
             sb.delete(0,indStop+TAG_CUSTOMER.length()+3);
         }
