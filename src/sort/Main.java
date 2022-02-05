@@ -21,10 +21,16 @@ public class Main {
         String personXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\personXML.xml";
         String customerXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\customerXML.xml";
         String fileName = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
+        String customersCSV = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\customers.csv";
+
+
         CompanyReader companyReader = new CompanyReader();
         PersonReader personReader=new PersonReader();
 
-        Area [] areas=Area.values();
+        CSVreader csVreader=new CSVreader();
+        //csVreader.readCSVfile(customersCSV);
+        System.out.println("новая попытка чтения csv- файла");
+        csVreader.readCSV_File(customersCSV);
 
 
         System.out.println("\nКоллектив нью22");//
@@ -42,7 +48,7 @@ public class Main {
             k++;
         }
 
-        System.out.println("\nCustomer");
+        System.out.println("!!!!!!!!!!\nCustomer");//
         CustomerReader customerReader=new CustomerReader();
         List<Customer> customerList=customerReader.getEntities(customerXML);
         int m=1;

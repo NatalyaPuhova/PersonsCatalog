@@ -19,7 +19,7 @@ public abstract class XMLreader <T> extends FileReader {
     private static final String TAG_CUSTOMER="Customer";
     private static final String TAG_AREA="area";
 
-    public abstract List<T> getEntities(String fileName);//////////////////////////////
+    public abstract List<T> getEntities(String fileName);
 
 
     protected StringBuilder getValueByTag(StringBuilder stringBuilder, String tag){

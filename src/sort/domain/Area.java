@@ -3,8 +3,6 @@ package sort.domain;
 public enum Area {
     ELECTRICIAN("Elect"), ENGINEER("Eng"), BUILDER("Build");
     private String code;
-    private String description;
-
 
     Area(String code){
         this.code=code;
