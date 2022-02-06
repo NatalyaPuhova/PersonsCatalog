@@ -2,7 +2,6 @@ package sort;
 import sort.comparator.PersonDateComparator;
 import sort.comparator.PersonSurnameComparator;
 import sort.comparator.PersonWeightComparator;
-import sort.domain.Area;
 import sort.domain.Company;
 import sort.domain.Customer;
 import sort.domain.Person;
@@ -11,6 +10,7 @@ import sort.sorting.Sorting;
 import sort.test.CheckProperties;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -22,18 +22,34 @@ public class Main {
         String customerXML="C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\customerXML.xml";
         String fileName = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\persony.txt";
         String customersCSV = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\customers.csv";
+        String customers1CSV = "C:\\Users\\pushinka\\Projects\\2022\\PersonsCatalog\\src\\sort\\resourses\\customers1.csv";
 
 
         CompanyReader companyReader = new CompanyReader();
         PersonReader personReader=new PersonReader();
 
         CSVreader csVreader=new CSVreader();
-        //csVreader.readCSVfile(customersCSV);
-        System.out.println("новая попытка чтения csv- файла");
-        csVreader.readCSV_File(customersCSV);
+
+        System.out.println();
+        System.out.println("####1 попытка чтения csv- файла");
+        List<Customer> customerList1=csVreader.getEntities(customersCSV);
+        //System.out.println("csVreader.getNumOfColumns="+csVreader.getNumOfColumns(customersCSV));
+
+        for (int i=0;i<customerList1.size();i++){
+            System.out.print("i="+(i+1)+"   ");
+            System.out.println(customerList1.get(i));
+        }
+
+        System.out.println();
+        System.out.println("####2 попытка чтения csv- файла");
+        List<Customer> customerList2=csVreader.getEntities(customers1CSV);
+        for (int i=0;i<customerList2.size();i++){
+            System.out.print("i="+(i+1)+"   ");
+            System.out.println(customerList2.get(i));
+        }
 
 
-        System.out.println("\nКоллектив нью22");//
+        /*System.out.println("\nКоллектив нью22");//
         List<Person> personList2=personReader.getEntities(personXML);//*
         for (Person p:personList2){
             System.out.println(p);//
@@ -57,13 +73,17 @@ public class Main {
             System.out.println(c);
             m++;
         }
-
+           */
         TXTreader txTreader=new TXTreader();
 
-        PersonReader personFactory = new PersonReader();
-        List<String> list = txTreader.readPersonsFromFile(fileName);//
+        PersonReader personReader1 = new PersonReader();
+        //List<String> list = personReader1.getEntities(fileName);//
         System.out.println("\nКоллектив");
-        List<Person> listPersons=personFactory.createPersonList(list);
+
+        List<String> list=new ArrayList<>();
+        list=txTreader.readPersonsFromFile(fileName);
+
+        List<Person> listPersons=personReader1.createPersonList(list);
         printListPersons(listPersons);
 
         Sorting sorting=new Sorting();
@@ -72,8 +92,15 @@ public class Main {
         printListPersons(listPersons);
 
 
-        Person[] arrayPersons=txTreader.readPersonsFromFile2(fileName);//
+        List<Person> personList=personReader1.getEntities(fileName);
+        System.out.println("personList.size()="+personList.size());
         System.out.println("!!!!!!!!!!!!!!!");
+
+        Person[]arrayPersons=txTreader.readPersonsFromFile2(fileName);//
+        for (Person p:arrayPersons){
+            System.out.println("3"+p);
+        }
+
 
         Person[] copyArrayPersons=new Person[arrayPersons.length];
         for (int i=0; i< arrayPersons.length;i++){

@@ -2,12 +2,11 @@ package sort.reader;
 
 import sort.domain.Area;
 import sort.domain.Customer;
-import sort.domain.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerReader extends XMLreader <Customer>{
+public class CustomerReader extends AbstractXMLreader<Customer> {
     private static final String TAG_CUSTOMER="Customer";
     public  List<Customer> getEntities(String fileName){
         List<Customer> customerList=new ArrayList<>();
@@ -24,11 +23,9 @@ public class CustomerReader extends XMLreader <Customer>{
             }
             catch (NumberFormatException exception){
                 System.out.println("NumberFormatException    "+ exception.getClass().getName());
-
             }
             catch (NullPointerException exception){
                 System.out.println("NullPointerException     "+ exception.getClass().getName());
-
             }
             Area areaName=null;
             String str=null;
@@ -40,11 +37,9 @@ public class CustomerReader extends XMLreader <Customer>{
             }
             catch (NullPointerException exception){
                 System.out.println("NullPointerException       "+ exception.getClass().getName());
-
             }
             catch (IllegalArgumentException exception){
                 System.out.println("IllegalArgumentException       "+ exception.getClass().getName());
-
             }
             System.out.println("age="+age);
             customerList.add(new Customer(name,adress,age,areaName));

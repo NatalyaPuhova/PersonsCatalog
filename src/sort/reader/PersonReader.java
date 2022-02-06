@@ -1,16 +1,11 @@
 package sort.reader;
 
 import sort.domain.Person;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonReader extends XMLreader<Person>  {
+public class PersonReader extends AbstractXMLreader<Person> {
     public List<Person> getEntities(String fileName){
         StringBuilder sb=returnStringBuilder(fileName);
         return getListPersonByValueNew(sb);
@@ -35,6 +30,17 @@ public class PersonReader extends XMLreader<Person>  {
             listPersons.add(new Person(name,surName,weight,dateBirth));
         }
         return listPersons;
+    }
+
+    public Person[] convertListToArray(List<Person> personList){
+        Person[] arrayPersons=new Person[personList.size()];
+        int i=0;
+        for (Person p:personList){
+            arrayPersons[i]=p;
+            i++;
+        }
+        return arrayPersons;
+
     }
 
 

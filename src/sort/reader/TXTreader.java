@@ -7,9 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class TXTreader extends FileReader{
+public class TXTreader extends AbstractFileReader{
+
     public    Person[] readPersonsFromFile2(String fileName) {
         List<String> listNamesSurnamesDates=new ArrayList<>();
         try {
@@ -66,6 +68,9 @@ public class TXTreader extends FileReader{
         return listNamesSurnames;
     }
 
+    public List<Person> getEntities(String fileName){
+        return null;
+    }
 
 
 }

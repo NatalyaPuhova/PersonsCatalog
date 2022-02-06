@@ -1,14 +1,12 @@
 package sort.reader;
 
 import sort.domain.Person;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class XMLreader <T> extends FileReader {
-
+public abstract class AbstractXMLreader<T> extends AbstractFileReader {
     private static final String TAG_PERSON="Person";
     private static final String TAG_NAME="name";
     private static final String TAG_SURNAME="surname";
@@ -19,11 +17,7 @@ public abstract class XMLreader <T> extends FileReader {
     private static final String TAG_CUSTOMER="Customer";
     private static final String TAG_AREA="area";
 
-    public abstract List<T> getEntities(String fileName);
-
-
     protected StringBuilder getValueByTag(StringBuilder stringBuilder, String tag){
-
         StringBuilder sb=new StringBuilder();
         String firstTag="<"+tag+">";
         String closeTag="</"+tag+">";
@@ -92,17 +86,6 @@ public abstract class XMLreader <T> extends FileReader {
         return null;
     }
 
-    protected int numRepeatWord (StringBuilder sb, String word){
-        String str=sb.toString();
-        int num=0;
-        int ind;
-        int startInd=0;
-        while ((ind=str.indexOf("<"+word+">",startInd))!=-1){
-            num++;
-            startInd=startInd+ind;
-        }
-        return num;
-    }
 
 
     protected Person getPerson(StringBuilder sb){
@@ -148,7 +131,6 @@ public abstract class XMLreader <T> extends FileReader {
         int stop=sb.indexOf("/"+TAG_PERSON)+TAG_PERSON.length()+2;
         sb.delete(0,stop);
         return person;
-
     }
 
     protected List<Person> getListPersonByValueNew(StringBuilder sb){
@@ -159,9 +141,4 @@ public abstract class XMLreader <T> extends FileReader {
         }
         return personList;
     }
-
-
-
-
-
 }
