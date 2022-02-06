@@ -48,6 +48,14 @@ public class Main {
             System.out.println(customerList2.get(i));
         }
 
+        System.out.println();
+        System.out.println("####3 попытка чтения csv- файла");
+        List<Customer> customerList3=csVreader.getEntities2(customers1CSV);
+        for (int i=0;i<customerList3.size();i++){
+            System.out.print("i="+(i+1)+"   ");
+            System.out.println(customerList2.get(i));
+        }
+
 
         /*System.out.println("\nКоллектив нью22");//
         List<Person> personList2=personReader.getEntities(personXML);//*

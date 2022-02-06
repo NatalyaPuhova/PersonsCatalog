@@ -17,6 +17,7 @@ public class CSVreader extends AbstractFileReader<Customer> {
          try {
              BufferedReader bufferedReader=new BufferedReader(new java.io.FileReader(fileName));
              Map <Integer,String> map=new HashMap<>();
+
              String [] arrayStr=bufferedReader.readLine().split(",");
              numofColumns=arrayStr.length;
              System.out.println("numofColumns="+numofColumns);
@@ -74,6 +75,43 @@ public class CSVreader extends AbstractFileReader<Customer> {
          return customerList;
     }
 
-
-
+    public List<Customer> getEntities2 (String nameFile){
+        Map<String,Integer> columns=new HashMap<>();
+        List<Customer> customerList=new ArrayList<>();
+        try {
+            BufferedReader br=new BufferedReader(new FileReader(nameFile));
+            String str=br.readLine();
+            String [] arrayStr=str.split(",");
+            for (int i=0;i<arrayStr.length;i++){
+                columns.put(arrayStr[i].trim(),i);
+            }
+            while ((str=br.readLine())!=null){
+                String[] arrayStrs=str.split(",");
+                String adress=arrayStrs[columns.get("Adress")].trim();
+                String name=arrayStrs[columns.get("Name")].trim();
+                Integer age=null;
+                Area areaName=null;
+                try {
+                    age=Integer.valueOf(arrayStrs[columns.get("Age")]);
+                }
+                catch (NumberFormatException exception){
+                    System.out.println("NumberFormat"+exception.getClass().getName()+"age не может быть получен;  age="+arrayStrs[columns.get("Age")]);
+                }
+                try {
+                    areaName=Area.getEnumByCode(arrayStrs[columns.get("Prof")]);
+                }
+                catch (IllegalArgumentException exception){
+                    System.out.println("IllegalArgument"+exception.getClass().getName()+"areaName не может быть получен;  age="+arrayStrs[columns.get("Prof")]);
+                }
+                customerList.add(new Customer(name,adress,age,areaName));
+            }
+        }
+        catch (FileNotFoundException exception){
+            System.out.println(exception.getClass().getName());
+        }
+        catch (IOException exception){
+            System.out.println("глобальная ошибка"+exception.getClass().getName());
+        }
+        return customerList;
+    }
 }
