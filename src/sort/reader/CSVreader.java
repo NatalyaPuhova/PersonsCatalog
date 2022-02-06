@@ -10,16 +10,17 @@ import java.util.*;
 
 public class CSVreader extends AbstractFileReader<Customer> {
 
-    private static  final int NUM_OF_COLUMNS=4;
-
     public List<Customer> getEntities(String fileName){
+        int numofColumns;
         List<Customer> customerList=new ArrayList<>();
         String str;
          try {
              BufferedReader bufferedReader=new BufferedReader(new java.io.FileReader(fileName));
-             int numofColumns=getNumOfColumns(fileName);
              Map <Integer,String> map=new HashMap<>();
              String [] arrayStr=bufferedReader.readLine().split(",");
+             numofColumns=arrayStr.length;
+             System.out.println("numofColumns="+numofColumns);
+
              for (int i=0;i<numofColumns;i++){
                  map.put(i,arrayStr[i]);
              }
@@ -73,19 +74,6 @@ public class CSVreader extends AbstractFileReader<Customer> {
          return customerList;
     }
 
-    private int  getNumOfColumns(String nameFile){
-        int num=0;
-        try {
-            String str;
-            BufferedReader br=new BufferedReader(new java.io.FileReader(nameFile));
-            if ((str=br.readLine())!=null){
-                num=str.split(",").length;
-            }
-        }
-        catch (IOException exception){
-            System.out.println(exception.getClass().getName());
-        }
-        return num;
-    }
+
 
 }
